@@ -1,0 +1,12 @@
+function(ADD_EXAMPLE EXAMPLE_NAME EXAMPLE_SOURCE)
+    add_executable(${EXAMPLE_NAME} ${EXAMPLE_SOURCE})
+    target_link_libraries(${EXAMPLE_NAME} PRIVATE ${PROJECT_NAME})
+    target_include_directories(${EXAMPLE_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
+    target_include_directories(${EXAMPLE_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME})
+endfunction()
+
+file(GLOB EXAMPLES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+foreach(EXAMPLE ${EXAMPLES})
+    get_filename_component(EXAMPLE_NAME ${EXAMPLE} NAME_WE)
+    ADD_EXAMPLE(${EXAMPLE_NAME} ${EXAMPLE})
+endforeach()
